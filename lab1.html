@@ -138,7 +138,10 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">Echo</h3>
-                            <p>The first thing we had to do was </p>
+                            <p>The first thing we had to do was set up the echo command so that it would 
+                                send a string value to the Artemis board. On the computer side, I augmented the 
+                                message from the Artemis by adding an R. 
+                            </p>
                             <img src="assets\img\echo.jpg" 
                                 alt="echo"/>
                             <img src="assets\img\echo1.jpg" 
@@ -150,22 +153,25 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">SEND_THREE_FLOATS</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p>After finishing echo, I started on this command which was to send 3 floats from
+                                the artemis board back. I followed the already given code in previous commands to set this up. 
+                                As shown below, I had three variables that would be hold the three float values and used the function 
+                                get next value to find the next float sent. 
                             </p>
                             <img src="assets\img\sendthreefloats.jpg" 
                                 alt="3floats"/>
                             <img src="assets\img\sendthreefloats1.jpg" 
                                 alt="3floats1"/>
-                            <img src="assets\img\sendthreefloats2.jpg" 
-                                alt="3floats2"/>
+        
                         </div>
 
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">GET_TIME_MILLIS</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> For this task I used the function millis() to get the current time and sent 
+                                the time stamp back with a T: prefix. The python code on the computer would then 
+                                receive this time and print it back out. To do this I used the function receive_string 
+                                to get the time back. 
                             </p>
                             <img src="assets\img\gettimemillis.jpg" 
                                 alt="timemillis"/>
@@ -176,8 +182,12 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">Notification Handler</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different 
-                                frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> To do this task I had to create a new function called notification handler that would 
+                                automatically receive data from the baord and I made the function print out the data. 
+                                This notification handler connects to the same UUID and converts the byte array to a string. 
+                                I also used the function start_notify to set up the notification handler so it would work with
+                                the other commands. Now rather than having to use the function receive_string, the python 
+                                side would automatically print out the data. 
                             </p>
                             <img src="assets\img\notificationhandler.jpg"
                                 alt ="notif"/>
@@ -186,8 +196,10 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">GET_TIME_LOOP_MILLIS</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> For this next task, I set up a loop that would run for 2 seconds and generate the current time 
+                                every 2 seconds. As soon as the data is made, it would send it back to the notification handler
+                                to print out. I just counted the number of strings that the notification handler spewed out. 
+                                In 2 seconds, 83 time stamps were received. The effective data transfer rate is (83*4)/2 = 166 bytes/sec. 
                             </p>
                             <img src="assets\img\gettimeloopmillis.jpg"
                                 alt ="loop"/>
@@ -198,8 +210,9 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">SEND_TIME_DATA</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> For this task I combined the previous task with a for loop that would send the generated time stamps one by one. 
+                                Instead of sending the time stamps as soon as they were generated, I stored the time stamps in an array and once
+                                the array was filled, I send it to the computer using the for loop. 
                             </p>
                             <img src="assets\img\sendtimedata.jpg"
                                 alt ="timedata"/>
@@ -211,8 +224,16 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">GET_TEMP_READINGS</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> For this task, I used the previous task and added a second array that would be responsible for 
+                                keeping track of the temperature values from the sensor. I collected data using the getTempDegF() function 
+                                and stored the generated temperature values into an array the same size as the time stamps. I made sure 
+                                to generate the time stamps and the temperature together so that each temperature corresponded to its respective 
+                                time stamp. I edited the notification handler so that it would store the readings into two separate lists. 
+                                I ran into some trouble where without the print statements within the notificaton handler, I wouldn't get any 
+                                data from the print statements outside the function. This was due to the print statements outside the function 
+                                finishing before the notification handler so I had to add some extra logic to debug this issue. Throughout these tasks
+                                I did not use the same noticification handler but instead made several different versions. This made it imperative that 
+                                I remember to use the function stop notify to ensure that I would get the correct data. 
                             </p>
                             <img src="assets\img\gettempreadings.jpg"
                                 alt ="temp"/>
@@ -223,8 +244,14 @@
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
                             <h3 class="mb-0">Discussion</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p>The two methods above have their pros and cons. The first method allows for real time transfer which could be useful for when 
+                                real time data is needed and slower data transfer rates are ok. The second method however is much faster 
+                                as by storing the data and sending it in a batch, this method avoids real time delays and data loss. In terms of 
+                                data storage capacity where the Artemis board was 384 kB of RAM, since we are sending out data into floats which are 4 bytes, 
+                                around 96000 data points can be stored before the Artemis runs out of memory. For Task 7 when we were sending the temperature and 
+                                time stamps, this means 48000 pairs of data could be send. However this number would be much less since the data is transmitted as a string 
+                                which could take more bytes depending on the amount of digits in the number. For example a 3 digit string would be 3 bytes but a 12 digit
+                                one would take up around 12 bytes. This makes it hard to estimate how many strings. 
                             </p>
                         </div>
 
@@ -232,20 +259,27 @@
                             <!-- Lab Text -->
                             <h3 class="mb-0">Additional 5000 Tasks</h3>
                             <div class="subheading mb-3">Effective Data Rate and Overhead</div>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> For the additional tasks, I measured peformance between the board and the computer by testing 
+                                different reply sizes. I used the len() function to get the actual bytes of the strings and I wrote a loop that 
+                                sends messages of different byte sizes. Then I calculated the time between sending and receving the message. 
+                                As shown in the graph below the smaller size 5 byte results had much lower data rates than the larger reply sizes. 
+                                Due to the byte string constraints, I was only able to test up to 148 bytes where the data rate was much higher. 
+                                To pick a right reply size depends on the latency and throughput of these package sizes since we would get a quicker 
+                                acknowledgement in a smaller reply size but we are less efficient.
                             </p>
                             <img src="assets\img\Lab1B5000.jpg"
                                 alt ="temp"/>
                                 <img src="assets\img\Lab1B5000plot.jpg"
                                 alt ="tempplot"/>
                             <div class="subheading mb-3">Reliability</div>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p>In addition to testing the data rate, I also tested the reliability by using the SEND_TIME_DATA function and I checked that no data
+                                from the array was lost. This time I upped the array size to much larger than 25 and used a counter to see if it caught all the messages
+                                which it did, showing that this is indeed reliable. 
                             </p>
                             <h3 class="mb-0">Conclusion</h3>
-                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies 
-                                and saw how the microphone picked up the different frequencies using the Serial monitor.
+                            <p> In conclusion, this lab was very useful to get acquianted with the lab and code environment. I was able to get acquainted more with the
+                                bluetooth library and get a refresher on C. I was also able to get familiar with the different methods of sending data between the board and
+                                the computer and get a sense of the performance in these data transfer rates and how important they can be. 
                             </p>
                         </div>
                 </div>
