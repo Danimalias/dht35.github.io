@@ -1,1 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">1</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        Artemis/Bluetooth
+                    </div>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 1A</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To prepare for this lab I first downloaded the most recent version of the Arduino IDE and downloaded the Sparkfun Apollo3 board. Then I connected to the Artemis board making sure to select the correct COM port.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Blink</h3>
+                            <p>The first task was to follow the example code given to make the onboard LED blink. Below is a video.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Serial</h3>
+                            <p>The second task was to run the Serial program on the Artemis board to get familiar with serial monitor. We tested UART communication between the board and the computer. </p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Analog Read</h3>
+                            <p>The third task was to test the onboard temperature sensor using the analogRead() function using an example code. As I put my finger nearer to the sensor, the temperature sensor output on the Serial monitor rose.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Microphone Output</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Additional 5000 Task</h3>
+                            <p>The last task was to make a program that would light up the onboard LED whenever a C note was played. In order to
+                                achieve this I combined the blink and the microphone examples together and edited the main loop function so that
+                                it would blink the LED. I edited the printLoudest() function on the given example microphone code and in the main loop, added an if
+                                statement that would light up the LED whenever it detected a frequency range between 260 and 265 Hz since that range 
+                                corresponded to a C note. Below is a video where I tested it with and without a C note playing. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <h2 class="mb-5">Lab 1B</h2>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>The setup for this lab involved creating a virtual Python environment with all the required 
+                                packages for the course, along with the codebase needed for the lab tasks. After that, 
+                                I configured Jupyter Lab to run the lab code and updated the necessary settings in the 
+                                connection.yaml file, such as the MAC address and UUID, to enable my Artemis board to 
+                                connect to my laptop. To ensure that only my laptop could pair with my board, I generated 
+                                a random UUID in Python. Finally, I established a Bluetooth connection between my laptop 
+                                and the board.
+                            </p>
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Echo</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">SEND_THREE_FLOATS</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">GET_TIME_MILLIS</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Notification Handler</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">GET_TIME_LOOP_MILLIS</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">SEND_TIME_DATA</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">GET_TEMP_READINGS</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Discussion</h3>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Additional 5000 Tasks</h3>
+                            <div class="subheading mb-3">Effective Data Rate and Overhead</div>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                            <div class="subheading mb-3">Reliability</div>
+                            <p>The fourth task was to test out the microphone on the board. I used a video that had different frequencies and saw how the microphone picked up the different frequencies using the Serial monitor.</p>
+                        </div>
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
 
