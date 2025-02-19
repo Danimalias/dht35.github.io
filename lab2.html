@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Accelerometer</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Gyroscope</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">2</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        IMU
+                    </div>
+                    <p class="lead mb-5"> In this lab, I familiarized myself with the IMU.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 2</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To prepare for this lab, I read up on the datasheet of the IMU sensor and skimmed the instructions.</p>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Setup the IMU</h3>
+                            <p>The first task was to run the basics code in the given examples. The AD0_VAL default is 1. In the code if we set the value to 0, 
+                                it uses a different i2c address. 
+                                Thus this ADO_VAL represents the last bit in the i2c address. As I played around with the sensor, I noticed that the gyroscope 
+                                would read a value meainly when the sensor was rotating a lot while the accelerometer would read values when the sensor was physically 
+                                moving up/down and left/right. After flipping the sensor a few times, I noticed at certain positions the sensor values would go negative. 
+                                After this I coded a visual indicator that the board was running by having the built in LED blink 3 times slowly on startup. Below 
+                                is a video of this blinking. 
+                                </p>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/_t8EVxsL97I" 
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            </iframe>
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Accelerometer</h3>
+                            <p>The second task was to test with the accelerometer sensor. I used the equations from class to convert this data into pitch and roll. 
+                                In addition I used atan2() to ensure that the data was in the proper quadrants. 
+                                Below is a video of when the accelerometer output is {-90, 0, 90} degrees pitch and roll and code of the equations I used. The accelerometer 
+                                was pretty accurate in that the degrees is only off by a one or two degrees. As such I felt that we didn’t need to do two-point calibration. 
+
+                            </p>
+                            <img src="assets\img\Lab2PitchRollEquation.jpg" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                           
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/xISvDjKLXRw" 
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            </iframe>
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">FFT Transform</h3>
+                            <p>The next task was to analyze the noise in the frequency spectrum. I took the Fourier transform of the pitch and roll data and at first I noticed 
+                                when the IMU was stationary, I only got noise at 0Hz. After consulting others, I realized I needed to add some movement to actually get the frequency 
+                                of the signal so I added some sinusoidal movements and random vibrations to get the signal. I printed out the pitch and roll data and took the FFT 
+                                of this. 
+
+                            </p>
+                            <img src="assets\img\Lab2Pitch.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Lab2Roll.jpg" 
+                                alt="Lab 2 Roll" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Lab2FFT.jpg" 
+                                alt="Lab 2 FFT" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Low Pass Filter</h3>
+                            <p>Next I indexed through the FFT graph to decide on my cutoff filter. I decided on a cutoff filter at 8Hz because with the movement of the sensor, I noticed most of the 
+                               noise died down later at around 8Hz. Based off formulas from class, I calculated my alpha value to be around 0.046. I got my sampling rate from 
+                               dividing the amount of messages I got (500) by the time stamp of the last data point. From this I calculated by time step and RC constant to get alpha. 
+                               Below is the code I used to calculate alpha. I once again tested my low pass filter by moving the sensor sinusoidally to get a clear wave. Below are 
+                               the images of the pitch and roll compared with its low pass values. As you can see, the noise and random spikes in the data are smoothed out. In fact 
+                               it seemed like the filtering was too much which might suggest needing a larger alpha value but I did not decide to optimize more. 
+                            </p>
+                            <img src="assets\img\Lab2LPFPitch.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Lab2LPFRoll.jpg" 
+                                alt="Lab 2 Roll" style="width: 400px; height: auto;"/>
+                    
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">Gyroscope</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Pitch Roll Yaw</h3>
+                            <p>After playing around with the accelerometer, I went on to the gyroscope and used equations from class to 
+                                calculate the pitch, roll, and yaw. Because the gyroscope measures angular velocity, I noticed that I would
+                                have to calculate dt that I could integrate the gyroscope velocity and add to the previous roll, pitch, and yaw. 
+                                The gyroscope values for roll and pitch seemed to drift more than the accelerometer but they were less noisy so in
+                                the beginning the values were pretty accurate but after that, they didn't match anymore. 
+                            </p>
+                            <img src="assets\img\echo.jpg" 
+                                alt="echo" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\echo1.jpg" 
+                                alt="echo1" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\echo1output.jpg" 
+                                alt="echo1output" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Complementary Filter</h3>
+                            <p>After calculating the pitch, roll, and yaw of the gyroscope, I wanted to fix this drift so I implemented a complementary filter
+                                to compute an estimate of the pitch and roll that was both accurate and stable. 
+                
+                            </p>
+                            <img src="assets\img\sendthreefloats.jpg" 
+                                alt="3floats" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\sendthreefloats1.jpg" 
+                                alt="3floats1" style="width: 400px; height: auto;"/>
+        
+                        </div>
+
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Sample Data</h3>
+                            <div class="subheading mb-3">Speeding it up</div>
+                            <p> 
+                            </p>
+                            <img src="assets\img\Lab1B5000.jpg"
+                                alt ="temp" style="width: 400px; height: auto;"/>
+                                <img src="assets\img\Lab1B5000plot.jpg"
+                                alt ="tempplot" style="width: 400px; height: auto;"/>
+                            <div class="subheading mb-3">Time Stamp</div>
+                            <p>In addition to testing the data rate, I also tested the reliability by using the SEND_TIME_DATA function and I checked that no data
+                                from the array was lost. This time I upped the array size to much larger than 25 and used a counter to see if it caught all the messages
+                                which it did, showing that this is indeed reliable. 
+                            </p>
+                            <div class="subheading mb-3">Storing Data</div>
+                            <p>In addition to testing the data rate, I also tested the reliability by using the SEND_TIME_DATA function and I checked that no data
+                                from the array was lost. This time I upped the array size to much larger than 25 and used a counter to see if it caught all the messages
+                                which it did, showing that this is indeed reliable. 
+                            </p>
+                            
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Recording a Stunt</h3>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/aMvmLsxS1bs"  
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            
+                            <div class="subheading mb-3">Observations</div>
+                            <p> While manuevering the car with the remote, I noticed it was pretty hard to control and the car moved very fast. I was able to make 
+                                the car do some cool tricks and fall on its side to continue spinning. I also noticed that even when making the car go straight 
+                                using the remote, the car still would not go straight and it would start to drift to the side. 
+                            </p>
+                            
+                        </div>
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
