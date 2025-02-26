@@ -121,20 +121,22 @@
                             <h3 class="mb-0">TOF Sensor Data Discussion</h3>
                             <p>Next I wanted to determine the sensor's sensor range, accuracy, repeatability, and ranging time. To test my TOF sensor in 
                                 short mode, I taped one of the sensors flat on my laptop and used a tape measure to set up different distances from the wall. 
-                                I decided to take take 10 different sensor measurements at 5 different distances. To check the accuracy of the sensors, I plotted 
+                                I decided to take take 10 different sensor measurements at 6 different distances. To check the accuracy of the sensors, I plotted 
                                 the average values I calcuated and compared them with the actual distances. This experiment however had a lot of possible room for 
-                                human error.  </p>
-                            <img src="assets\img\Lab2LPFEquation.jpg" 
+                                human error. I believe I might have been calculating the distance correctly when it was much closer to a wall but as it got larger,
+                                the error increased. This might have been a human error since the distance did increase the same rate. My laptop lid was very flimsy.  </p>
+                            <img src="assets\img\Lab3TOFSensorRange.png" 
                                 alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
-                            <p>After this I wanted to test repeatability. I had already taken 10 measurements for 5 distances so I just graphed these out and figured
-                                out the differences between the two measurements as well as how it compared against the actual distance. 
+                            <p>After this I wanted to test repeatability. I had already taken 10 measurements for 6 distances so I just graphed these out and figured
+                                out the standard deviations as well as how it compared against the actual distance. 
                             </p>
-                            <img src="assets\img\Lab2LPFEquation.jpg" 
+                            <img src="assets\img\Lab3TOFRepeat.png" 
                                 alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
-                            <p>To measure the ranging time, I took the starting and ending times of the data collection loop.  
+                            <p>To measure the ranging time, I took the starting and ending times of the data collection loop. By getting rid of superfluous code
+                                in between my start and stop ranging functions, I managed to get to 3ms ranging time. I noticed if I added more logic in between the ranging
+                                time would go up to 50 ms. 
                             </p>
-                            <img src="assets\img\Lab2LPFEquation.jpg" 
-                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            
                     
                         </div>
                     </div>
