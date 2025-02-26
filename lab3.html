@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">TOF</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">TOF and IMU</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">2</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        IMU
+                    </div>
+                    <p class="lead mb-5"> In this lab, I familiarized myself with the TOF.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 3</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To prepare for this lab, I read up on the datasheet of the TOF sensor. From the datasheet I figured
+                                out that the device addrress was 0x52. However to prepare for the 2 sensors, I needed to solder the XSHUT pin 
+                                to the Artemis Nano board. This was done to temporarily shut off one of the sensors so that the I2C address
+                                could be changed to the other and we could have both communicating. This was better than having to solder two XSHUT 
+                                pins. For the placement of these sensors on the car, I plan to have the TOF sensors on opposite ends front
+                                and back of the car. Thus I used the longer QWIIC connectors to facilitate this. This placement would be best because 
+                                it would allow me to detect obstacles in the front and back of the car when the car is moving forwards and backward.
+                                This might cause the robot to miss obstacles on the sides but I anticipate that the car will not be rotating that much. 
+                                As shown below, this is what I expect my wiring to be. 
+                            </p>
+                            <img src="assets\img\Lab2PitchRollEquation.jpg" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">TOF sensor with QWIIC breakout board</h3>
+                            <p>The first task was to hook everything up and solder the batteries and the TOF sensor. First I soldered the battery wires
+                                to the JST jumper wires and used a multimeter to test if I soldered them correctly. I also used heat shrink to protect
+                                the wires from possibly touching. I powered the Artemis with this battery instead of the USB-C and tested 
+                                its BLE capabilities. Below is an image of the setup where the TOF is connected to the Artemis.  
+                                </p>
+                            <img src="assets\img\Lab2PitchRollEquation.jpg" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Artemis Scanning for I2C device</h3>
+                            <p>The second task was to scan the I2C channel to find the sensor. I used the example files to see this and get familiarized
+                                with i2c commands. I found that the code looked for 2 i2c devices but it did manage to find my device. The address 
+                                was not what I expected since I thought according to the data sheet the address was 0x52 it was 0x29. This was because the 
+                                address seemed to be bit shifted to the right since the most significant bit was used to determine whether the data was being 
+                                written or read. 
+                            </p>
+                            <img src="assets\img\Lab2PitchRollEquation.jpg" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                        
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">TOF Sensor Modes</h3>
+                            <p>The next task was to decide on a good sensor mode. After looking through the datasheet, I found that there 
+                                were three modes for the final robot: .setDistanceModeShort(), .setDistanceModeMedium(), and .setDistanceModeLong(). 
+                                I found that the distance mode for the short rnage had a maximum detectable distance of 1.3m and had better ambient 
+                                immunity where it was less susceptible to noise. The other ranges were much larger but were more susceptible to this 
+                                ambient noise. Thus since the robot probably didn't need to see farther than 1 meter, I chose the short distance mode.
+                                As seen below is a video of me testing with the short distance mode and the data I was getting.  
+
+                            </p>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/aMvmLsxS1bs"  
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">TOF Sensor Data Discussion</h3>
+                            <p>Next I wanted to determine the sensor's sensor range, accuracy, repeatability, and ranging time. To test my TOF sensor in 
+                                short mode, I taped one of the sensors flat on my laptop and used a tape measure to set up different distances from the wall. 
+                                I decided to take take 10 different sensor measurements at 5 different distances. To check the accuracy of the sensors, I plotted 
+                                the average values I calcuated and compared them with the actual distances. This experiment however had a lot of possible room for 
+                                human error.  </p>
+                            <img src="assets\img\Lab2LPFEquation.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <p>After this I wanted to test repeatability. I had already taken 10 measurements for 5 distances so I just graphed these out and figured
+                                out the differences between the two measurements as well as how it compared against the actual distance. 
+                            </p>
+                            <img src="assets\img\Lab2LPFEquation.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <p>To measure the ranging time, I took the starting and ending times of the data collection loop.  
+                            </p>
+                            <img src="assets\img\Lab2LPFEquation.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                    
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">Two Sensors Working</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Two Sensors</h3>
+                            <p>After getting the necessary sensor's data, I hooked up 2 TOF sensors together and I had to modify
+                                the code to collect sensors from both. To do this I had to toggle between the values of the XSHUT pin 
+                                to change the address of the sensors. I also optimized my code so that it would take in data much faster. 
+                                To do this I used distanceSensor.checkForDataReady() to check when new data was available rather than having
+                                my code hand while it waits for the sensor to finish measuring. I printed out the time stamps to determine how 
+                                fast my loop was executing. It is around 6-7 ms every time reading and around 46-50 ms for every time it 
+                                detects a change in the two distance sensors. If one distance sensor changes the reading the time is around 20-25 ms. 
+                                Some Possible limiting factors are that the data is not available everytime through the loop 
+                                (due to the checkForDataReady() if statement) or there needs to be some delay in between for 
+                                the data to be read and then written.
+                            </p>
+                            <img src="assets\img\Lab2PitchGyro.jpg" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">IMU and TOF</h3>
+                            <p>Eventually I combined my code from lab 1 to plot the TOF data over time. In addition to this 
+                                I also plotted my IMU data to plot over time. I structured my code so that it would get these sensor readings
+                                all in parallel.  
+                
+                            </p>
+                            <img src="assets\img\Lab2CompCalc.jpg" 
+                                alt="3floats" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Lab2PitchComp.jpg" 
+                                alt="3floats" style="width: 400px; height: auto;"/>
+                        
+                        </div>
+
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Additional Tasks for 5000 level Students</h3>
+                            <div class="subheading mb-3">Infrared Transmission</div>
+                            <p>  Some common sensors are are infrared triangulation sensors and passive infrared (PIR) sensors. 
+                                Infrared triangulation sensors emit IR light onto an object and measure the reflection angle using 
+                                a position-sensitive detector to determine the distance. They offer good accuracy for short ranges
+                                but can be affected by ambient noise.
+
+                                On the other hand, PIR sensors detect infrared radiation emitted by objects rather than sending out IR signals. 
+                                They are more used for motion detection rather than precise distance measurement since they use heat patterns.
+                                While PIR sensors are energy-efficient and work well in darkness, they cannot determine exact distances or detect stationary objects. 
+                                Infrared triangulation is better for short-range precision, but PIR sensors are better in motion detection applications like security systems.
+                            </p>
+                            <div class="subheading mb-3">Sensitivity to colors and Textures</div>
+                            <p> Finally to test this, I used the example Read distance code and introduced different ambinent noise through different colors and 
+                                textures around the sensor. I compared my readings with less ambient noise and found out that the sensor was a little sensitive to 
+                                the noise and its readings were a little different. Sometimes I would get outliers in the distance readings due to this. 
+                            </p>
+                            
+                        </div>
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
