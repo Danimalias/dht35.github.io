@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Motors</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Open Loop Control</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">4</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        Motors and Open Loop Control 
+                    </div>
+                    <p class="lead mb-5"> In this lab,I combined all the sensors from previous labs and worked with the motor driver to set up the car and make it move.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 4</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To prepare for this lab, I checked out the datasheet and documentation for the dual motor driver 
+                                to get a sense of the pins needed. To deliever enought current for our robot to be fast I used the 
+                                lectures from class to get a sense of how to parallel couple the two inputs and outputs on each motor driver. 
+                                After this I picked pins A0 and A1 on the Artemis to control the first motor driver and I picked pins A3 and A5 
+                                to control the other motor driver. I picked these pins because of how the artemis was going to be placed 
+                                in the car, I wanted to make sure the pins I were using would output PWM signals as well as was on the same side 
+                                of the Artemis board. 
+                            </p>
+                            <p>
+                                We power the Artemis and the motor drivers from separate batteries because if we powered it all from the same battery 
+                                it would be possible that there is not enough current to power the Artemis since the current demand is so high. 
+                                This can cause voltage drops and instability in the Artemis.
+                            </p>
+                            <p>
+                                When considering the routing for all the components of the board, I knew I wanted smaller length wires to connect 
+                                the motor driver to the artemis and the motors because they were all pretty close together in the chassis of the car. 
+                                I kept the TOF sensors to be longer since they would be on the front and side of the car and I chose a shorter wire 
+                                for the IMU since it would be close to the artemis. I decided to continue to use the QWIIC breakout board and the 
+                                connector cables for the TOF and IMU sensors because the cables I picked from previous labs were long enough. I decided
+                                to color code my motor driver pins so I set up all the inner parallel pins to be green and the outer parallel pins to be 
+                                yellow for ease of use and understanding. I decided to use stranded wire rather than solid core to account for the car 
+                                undergoing high accelerations. 
+                            </p>
+
+                            <img src="assets\img\Lab4Hardware.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">PWM Signals</h3>
+                            <p>The first task was to hook everything up and solder the motor drivers. I first started with soldering the first motor driver 
+                                and connected it with the Artemis and a power supply that was set to 3.7 Volts. Some reasonable settings for the power supply 
+                                was a current that was a little higher than 0 A so around 0.2 A and I noticed that that 2.7V was enought to power the motor driver 
+                                from the datasheet but I increased it to 3.7V so it would be consistent with the battery. 
+                                </p>
+                                <img src="assets\img\Lab4Setup.jpg" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <p>
+                                I then wrote some simple code to generate the PWM signals using AnalogWrite as shown below. I took inspiration from Nila Narayan 
+                                to cycle through the PWM signal values. 
+                            </p>
+                            
+                             <img src="assets\img\Lab4Code.jpg" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p> 
+                                I probed the out signals using the PWM to see my signals and noticed it had a lot of coupling due to how I wired it. I had initially 
+                                used a lot of loops in my motor driver to parallel couple the inputs and outputs but after seeing the messy outputs I decided to resolder
+                                my motor driver to remove the loops and decrease the EMI and coupling of the wires. I was able to get cleaner PWM signals that were 
+                                a square wave. 
+                             </p>
+                             <img src="assets\img\Lab4Scope.jpg" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Motor Driver with Car</h3>
+                            <p>After ensuring that my PWM signals were clean, I took my car apart and removed the internal PCB. I connected the motor driver outputs to 
+                                the motor wires. I still kept my motor driver powered on an external power supply and I ensured that they all shared the same ground. I then 
+                                wrote code to test the wheels spinning to ensure that it could spin forwards and backwards. After getting one wheel to turn forward and back, 
+                                I started to solder the second motor driver and connecting it with the rest of the components. After getting the wheels working on the power 
+                                supply I switched to the battery and tested on that. Below are videos of the individual sides of 
+                                the wheels spinning forwards and backwards as well as both wheels spinning with the battery driving the motor drivers. 
+                            </p>
+                            <img src="assets\img\Lab4SpinCode.jpg" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <!-- Need Videos -->
+                             <p>
+                                After ensuring that the car wheels were moving forwards and backwards, I installed everythig inside the car chassis. I used double sided tape and 
+                                zip ties to ensure everything was secure and inside the car. Below is an image of my setup. 
+                             </p>
+                             <img src="assets\img\Lab4HardwareSetup.jpg" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                        
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Lower Limit PWM</h3>
+                            <p> After getting both wheeels turning, I started figuring out the lower limit PWM for when the robot starts to move forward. 
+                                I decided to do this experimentally by manually changing the PWM values in groups of 10 rather than using a for loop to 
+                                slowly increase the value because I wanted to see the robot move for a while. I managed to find that the minimum value for 
+                                the robot to move forward was 50 and the minimum value to turn was 70.  
+
+                            </p>
+    
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Calibration Demonstration</h3>
+                            <p>While running the wheels at the same PWM value, I noticed that the left wheel would run much faster than the right wheel.
+                                I implemented a calibration factor by just changing the values until I saw the wheels turn at the same rate. I ended up
+                                up with the left wheel at 70 and the right wheel at 100 to get them to turn at the same rate. This means the calibration 
+                                factor was 1.4. Below is a screenshot of the code and video of the car moving in a straight line. 
+
+                            </p>
+                            <img src="assets\img\Lab3TOFSensorRange.png" 
+                                alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <h3 class="mb-0">Open Loop Demo</h3>
+                            <p>
+                                I then coded up an open loop routine for the car to go straight then turn and move and turn again. Below is a 
+                                demo video of the car moving around the lab. 
+                            </p>
+                    
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">5000 Level Tasks</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">AnalogWrite Frequency</h3>
+                            <p>
+                                The analog Write function of the Artemis operates with a time stamp of 3ms which is a frequency of around 333Hz. 
+                                This is adequately fast for these motors but we could manually configure the timers 
+                                to generate a faster PWM signal. Some benefits would be it could ensure better motor control 
+                                over the movement of the robot. Below is the code I used. 
+                            </p>
+                            <img src="assets\img\Lab4FrequencyDis.jpg" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                                
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Lowest PWM value</h3>
+                            <p> I used a for loop which decreasing PWM values to figure out at what value the robot kept 
+                                moving once it was in motion. I wrote some code to have the car overcome its static friction 
+                                first at value 50 then slowly decreased that value until I saw the wheels stop moving. 
+                                I noticed that the left wheel's lowest PWM value was 26 when it started to run very slowly 
+                                and the right wheel's lowest PWM value was 39. Below is the video and code of the setup. 
+                
+                            </p>
+                            <img src="assets\img\Lab45000_LowestPWM.jpg" 
+                                alt="3floats" style="width: 400px; height: auto;"/>
+                            
+                        
+                        </div>
+
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
