@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">PID and Orientation</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">5000 Level Tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">6</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        Orientation PID 
+                    </div>
+                    <p class="lead mb-5"> In this lab, I used the IMU and the TOF sensor to implement PID orientation control.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 6</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Prelab</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To prepare for this lab, I mainly setup the IMU data transfer the same way I did for Lab 5. I just added 
+                                more boolean flags that checked whether angular PID should be on of off. I edited my notification handler to 
+                                be able to handle the IMU data as well. I added some more commands as well: START_PID_ANG, STOP_PID_ANG, CHANGE_LINEAR, 
+                                CHANGE_ANGULAR, CHANGE_LINEAR_GAIN, CHANGE_ANG_GAIN. I edited the GET_PWM_TOF_DATA command to also send IMU data over. 
+                                The implementation of these commands were similar to my implementation in Lab 5.
+                            </p>
+
+                            <img src="assets\img\Start_car.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Start_pid.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Stop_pid.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\change_gain.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\getpwmtofdata.jpg" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">P Control</h3>
+                            <p>Similar to Lab 5, I started with a proportional controller where the pwm output was based on error and the gain value. 
+                                I noticed using this way that the car would often just spin around in circles a lot. 
+                            </p>
+                            
+                             <img src="assets\img\pidang.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                                
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">PI Control </h3>
+                            <p>After ensuring that P control worked well enough I started on PI control. Unforunately I wasn't able to see much of a different in performance. The I value I eventually 
+                                got was very small. I just tested values and got 0.002. Below is a video where the run was good and it stopped more accurately and no oscillations. 
+                            </p>
+                            <img src="assets\img\Icontrol.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/m1Jtt2AEeF4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Sampling Time and Extrapolation</h3>
+                            <p> Although the PI and the P control worked well somewhat, there was a lot of downtime when the TOF sensor data just wasn't ready and needed around 40 ms for a new value. It was not great so I had to 
+                                do extrapolation to get the car working better. For when there were no TOF readings I implemented a linear extrapolation from the recent measurements to get a rough estimate of the robot's position. 
+                                New TOF values would trigger a new PID calculation. 
+
+                            </p>
+                            <img src="assets\img\extrapolation.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+    
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">5000 Level Tasks</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Windup Protection</h3>
+                            <p>
+                                When there was no windup protection, the car would slam into the wall if it went very fast. I would have to set the PWM to be slightly above 40 to get it to work as 
+                                seen in the videos. The integral error increased over time so wind up protection was implemented. If the value of Ki multipled by the time integrated error was greater 
+                                than 250 or less than -250 the Ki Integral would be set to a constant 250 and does not change. The implementation is below. I noticed with a 
+                                higher Ki values the worse the robot performed. 
+
+                            </p>
+                            <img src="assets\img\windup.png" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                                
+                        </div>
+                        <p>
+                            I referenced Nila Narayan and Mikayla Lahr for implementation. 
+                        </p>
+
+
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
