@@ -64,6 +64,9 @@
                                 be able to handle the IMU data and the PID ANG data. I added some more commands as well: START_PID_ORI, STOP_PID_ORI. 
                                 I added a GET_PID_DATA_ORI to send the new data over to debug. 
                                 The implementation of these commands were similar to my implementation in Lab 5 using flags.
+                                I used the equation from class to compute the value for th ePID controller but then used trial and error. The proportional would 
+                                represent the current error while the integral would count the accumulation of past errors. The derivative would predict future error. 
+                                
                             </p>
 
                             <img src="assets\img\start_pid_ori.png" 
@@ -72,44 +75,54 @@
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
                             <img src="assets\img\getpiddataori.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\lab6notif.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
                         </div>
 
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
-                            <h3 class="mb-0">P Control</h3>
-                            <p>Similar to Lab 5, I started with a proportional controller where the pwm output was based on error and the gain value. 
-                                I noticed using this way that the car would often just spin around in circles a lot. 
+                            <h3 class="mb-0">PI Control</h3>
+                            <p>Similar to Lab 5, I used a PI Control  where the pwm output was based on error and the gain value and the accumulated error. 
+                                I noticed using this way that the car would often just spin around in circles a lot or it would just not move and go forwards sometimes. 
+                                After talking to others in the class, I decided I actually had to first implement the DMP to allow the IMU to perform real time 
+                                calibration and drift correction. I had to uncomment a line of code in the IMU library to enable the DMP. I also used 
+                                the example DMP code to set it up. 
                             </p>
-                            
+                            <img src="assets\img\dmp.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p> I decided to use some more example code from the DMP where the code read quaternion data and it extracts the orientation data 
+                                and converts it to a usable value and calculates the yaw from this. The yaw is compared to a target angle to compute an orientation error, 
+                                where previously in lab 5 the error was foot distance from a wall. I then used a similar code from my P control in lab 5 for the orientation code. 
+                                This time I added a timeout feature though. 
+                             </p>
                              <img src="assets\img\pidang.png" 
                              alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p>
+                                First I tried to use the same PID values where P = 0.08 and I = 0. This caused the car to not move or sometimes just go straight. 
+                                This would give me no values to debug which made it seem like the data was never ready. I then started to use other Kp values. I picked a much larger 
+                                Kp value of 5.0 where this worked best. I tweaked the Ki value a little bit and gave it a value of 0.0001. This yielded ok results. The car would move a lot 
+                                before settling. The car would also oscillate a lot once it got into its good orientation. 
+                             </p>
+                             <iframe width="560" height="315" src="https://www.youtube.com/embed/4Na8xKtbf2Q" frameborder="0" allowfullscreen></iframe>
+                             <img src="assets\img\pid_ang_graph.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+
                                 
 
                         </div>
 
-                        <div class="d-flex flex-column flex-grow-1">
-                            <!-- Lab Text -->
-                            <h3 class="mb-0">PI Control </h3>
-                            <p>After ensuring that P control worked well enough I started on PI control. Unforunately I wasn't able to see much of a different in performance. The I value I eventually 
-                                got was very small. I just tested values and got 0.002. Below is a video where the run was good and it stopped more accurately and no oscillations. 
-                            </p>
-                            <img src="assets\img\Icontrol.png" 
-                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/m1Jtt2AEeF4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        
-
-                        </div>
+    
 
                         <div class="d-flex flex-column flex-grow-1">
                             <!-- Lab Text -->
-                            <h3 class="mb-0">Sampling Time and Extrapolation</h3>
-                            <p> Although the PI and the P control worked well somewhat, there was a lot of downtime when the TOF sensor data just wasn't ready and needed around 40 ms for a new value. It was not great so I had to 
-                                do extrapolation to get the car working better. For when there were no TOF readings I implemented a linear extrapolation from the recent measurements to get a rough estimate of the robot's position. 
-                                New TOF values would trigger a new PID calculation. 
+                            <h3 class="mb-0">Sampling Time and Range</h3>
+                            <p> Although the PI worked well somewhat, there was a lot of downtime when the TOF sensor data just wasn't ready and needed around 40 ms for a new value. 
+                                Also the calculated yaw error was at most 360 degrees. I added print statements for each new IMU data to see its sampling period. The sampling frequency was 
+                                around 100Hz for the measurements, This time the PID loop also ran at aroung the same speed as the gyroscope. When testing I found that the lower limit PWM 
+                                where the robot would turn was actually around 75. 
 
                             </p>
-                            <img src="assets\img\extrapolation.png" 
-                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
     
                         </div>
 
@@ -127,8 +140,7 @@
                             <!-- Lab Text -->
                             <h3 class="mb-0">Windup Protection</h3>
                             <p>
-                                When there was no windup protection, the car would slam into the wall if it went very fast. I would have to set the PWM to be slightly above 40 to get it to work as 
-                                seen in the videos. The integral error increased over time so wind up protection was implemented. If the value of Ki multipled by the time integrated error was greater 
+                                When there was no windup protection, the car would slam into the wall if it went very fast and it would also sometimes just spin really fast based on different floors. Thus wind up protection was implemented. If the value of Ki multipled by the time integrated error was greater 
                                 than 250 or less than -250 the Ki Integral would be set to a constant 250 and does not change. The implementation is below. I noticed with a 
                                 higher Ki values the worse the robot performed. 
 
