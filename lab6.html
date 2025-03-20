@@ -61,20 +61,16 @@
                             <div class="subheading mb-3">Setup</div>
                             <p>To prepare for this lab, I mainly setup the IMU data transfer the same way I did for Lab 5. I just added 
                                 more boolean flags that checked whether angular PID should be on of off. I edited my notification handler to 
-                                be able to handle the IMU data as well. I added some more commands as well: START_PID_ANG, STOP_PID_ANG, CHANGE_LINEAR, 
-                                CHANGE_ANGULAR, CHANGE_LINEAR_GAIN, CHANGE_ANG_GAIN. I edited the GET_PWM_TOF_DATA command to also send IMU data over. 
-                                The implementation of these commands were similar to my implementation in Lab 5.
+                                be able to handle the IMU data and the PID ANG data. I added some more commands as well: START_PID_ORI, STOP_PID_ORI. 
+                                I added a GET_PID_DATA_ORI to send the new data over to debug. 
+                                The implementation of these commands were similar to my implementation in Lab 5 using flags.
                             </p>
 
-                            <img src="assets\img\Start_car.jpg" 
+                            <img src="assets\img\start_pid_ori.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
-                            <img src="assets\img\Start_pid.jpg" 
+                            <img src="assets\img\stop_pid_ori.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
-                            <img src="assets\img\Stop_pid.jpg" 
-                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
-                            <img src="assets\img\change_gain.jpg" 
-                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
-                            <img src="assets\img\getpwmtofdata.jpg" 
+                            <img src="assets\img\getpiddataori.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
                         </div>
 
