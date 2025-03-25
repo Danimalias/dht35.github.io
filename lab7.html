@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Kalman Filtering</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">KF on Car</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">7</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                        Kalman Filtering 
+                    </div>
+                    <p class="lead mb-5"> In this lab, I combined Kalman Filtering and PID control onto the robot.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 7</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Estimating Drag and Momentum</h3>
+                            <div class="subheading mb-3">Setup</div>
+                            <p>To build the state space model for my system, I first estimated the drag and momentum 
+                                terms for my A and B matricies. I used a step response to do this and drove the car towards 
+                                a wall at a constant input motor speed at a PWM value of 70 while logging the 
+                                motor input vlaues and the TOF sensor output. I chose 70 because I had set 100 to be my maximum PWM value back from lab 5. 
+                                To ensure my step time was long enough to reach steady state, I made sure to 
+                            </p>
+
+                            <img src="assets\img\TOFSensorOutput.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\ComputedSpeed.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\MotorInput.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            
+                            <p>
+                                I measured the steady state speed to be around 
+                                The 90% rise time was 
+                                The speed at 90% rise time was 
+                                From these values I calculated the drag to be and the momentum to be 
+                            </p>
+                            <p>
+                                When I was sending this data back to my laptop, I saved the data in a csv file in python. 
+                            </p>
+
+                        </div>
+
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Initialize KF (Python)</h3>
+                            <p>Using the calculated values for d and m, I computed the A and B matrix. From the state space equation
+                                the A and B matrices were this respectively. 
+                            </p>
+                            <img src="assets\img\Amatrix.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <img src="assets\img\Bmatrix.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p>
+                                I discretized the A and B matrices using the slide from lecture 13. The sampling time was 
+                             </p>
+                             <img src="assets\img\Discretize.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p> 
+                                After this I identified my C matrix to be C = [1,0]. After this I initialized the state vectors 
+                                where x = np.array([[distance1[0]], [0]]). 
+                             </p>
+                            
+                             <p> For my Kalman filter to work well I also specified my process noise and sensor noise convariance matrices. 
+                                 Sigma_3 was set to 20 because the TOF sensor has a ranging error of +/- 20 mm. 
+                                 Sigma_1 and sigma_2 was initialized using the calcualtions from Lecture 13. 
+                                 Sigma_1: Sigma_2: Sigma_3: 20mm. Sigma_U. 
+                                 In python the initialized sigma_1 value was 20 and 5 for sigma_2 as the robot was not moving in the beginning.
+                                 With each dataset, I had to change the sigma values. 
+                             </p>    
+
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Implementing and testing the Kalman Filter </h3>
+                            <p> To check my chosen parameters from above, I implemented my Kalman Filter in Jupyter using the code 
+                                provided in lab. 
+                            </p>
+                            <img src="assets\img\kf.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <p>
+                                I had to import my timing, TOF, and PWM data from a straight run towards the wall. 
+                                I had to format my data so that the array would have equal length by interpolating the data. 
+                                I looped through my data while calling the Kalman filter. I scaled my input from 1 to the my actual 
+                                step size. Below is a graph to show my best parameters to estimate the system state. 
+                            </p>
+                            <img src="assets\img\kfoutput.png" 
+                             alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                             <p>
+                                While I was doing this lab I had to adjust the covariance matrices. 
+                             </p>
+    
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">Implementing KF on Robot</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">KF on Robot</h3>
+                            <p>
+                                To implement the KF filter on the robot, I had to install the Basic Linear Algebra library on the arduino. 
+                                I created two new cases: KF_DATA and SEND_KF_DATA. I also wrote a kalman filter function in Arduino IDE. 
+
+                            </p>
+                            <img src="assets\img\kfarduino.png" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                            <p>
+                                I had to also use the TOF readings for the PID loop. During this time, I had to tune my PID terms as well to get the 
+                                car to work well. Below is graphs of the time vs distance vs the TOF distance and the Kalman Filter. 
+                                Below is also the time vs the motor input. 
+                            </p>
+                            <img src="assets\img\timevsdistance.png" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\timevsmotorinput.png" 
+                                alt="pitch gyro" style="width: 400px; height: auto;"/>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/4Na8xKtbf2Q" frameborder="0" allowfullscreen></iframe>
+                                
+                        </div>
+                        <p>
+                            I referenced Nila Narayan and Mikayla Lahr for implementation. 
+                        </p>
+
+
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
