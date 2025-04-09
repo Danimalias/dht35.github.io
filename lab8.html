@@ -63,29 +63,57 @@
                                 I lost my motivation. Shout out to Lulu for letting me borrow her monitor and room to do this lab. To do this lab, I made a new command called STUNT that would actually do the flip.
                                 This command also sent the pwm speed and the distance 
                                 data over via bluetooth. To do the flip, I had the car go straight very fast then go in the opposite direction when it was one feet away from the wall. To make the flip easier, I put a few rocks at the bottom of the 
-                                car in the battery compartment. Below are screenshots of my code to do the flip in open loop. 
+                                car in the battery compartment. At first I tried to get the car to actually sense it was a feet away before flipping but my sensor readings were too slow and the car kept hitting the wall so I 
+                                just decided to hard code the flip instead. Below are screenshots of my code to do the flip in open loop. 
                             </p>
 
                             <img src="assets\img\StuntCode.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
+                            <p> 
+                                At first I was adding the hard stop in my code before going backwards but I realized that this slowed my car down and it wouldn't flip so I just decided to get rid of the stop altogether 
+                                and I found that this was what allowed the car to finally flip reliably. 
+                            </p>
                            
                             
                             <p>
                                 After a few tries with fixing my speed and fiddling with the weights on my car, I was able to get the car to flip and run back. At first I put too many pebbles and noticed it significantly weighed the car down and made it much slower.
                                 This made the car not able to flip. I also had taped all 4 wheels of the car but I soon realized that this was what was stopping me from being able to flip so I removed the tape from the two front
                                 wheels of the car. Once I did that I was able to get the car to flip reliably on the carpet floor. Below is a video of the stunt and a graph of the pwm value of the car and the distance 
-                                sensed by my TOF sensor over time the first time I was able to get the car to flip. This trial in particular was the fastest with the car going 2.7 seconds to go forward flip and go back to the starting line. 
+                                sensed by my TOF sensor over time the first time I was able to get the car to flip. This trial in particular was with the car going 2.7 seconds to go forward flip and go back to the starting line. 
                             </p>
                             <img src="assets\img\Trial1Distance.png" 
-                            alt="Lab 2 Pitch" style="width: 100px; height: auto;"/>
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
                             <img src="assets\img\Trial1PWM.png" 
-                            alt="Lab 2 Pitch" style="width: 100px; height: auto;"/>
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
 
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/f8RhnqNfNvg" frameborder="0" allowfullscreen></iframe>
 
-                            <p> After getting it working the first time I did a few more trials to see if the car could reliably flip. Below are videos and graphs of it working for the second and third time. </p>
+                            <p> After getting it working the first time I did a few more trials to see if the car could reliably flip. Below are videos and graphs of it working for the second and third time. 
+                                For the second trial, I got the car to go faster with 2.15 seconds for it to go and flip and turn back. This time the car went even straighter back. Below is the data 
+                                when going forward and the video. I think throughout my data although the car was stopping a feet away from the wall, I had but a sweater against the wall to cushion the car if 
+                                it ever crashed. I think this caused the sensor to think that it was reaching the sweater hence the distance sensed sometimes being close to 0m. 
+                            </p>
 
-                            
+                            <img src="assets\img\Trial2Distance.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Trial2PWM.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/fhxCjnJ8wWE" frameborder="0" allowfullscreen></iframe>
+
+                            <p> I found that I would often have to charge the battery since making the car go really fast often drained it of its battery pretty quickly. I also think the fact that my rocks 
+                                where loose inside the battery compartment caused the car to like to go back not in a straight line sometimes and would come back wonky. Finally below is my third trial. The car 
+                                this time still went pretty fast at 2.4 seconds but it was still slower than my second trial. 
+                            </p>
+
+                            <img src="assets\img\Trial3Distance.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+                            <img src="assets\img\Trial3PWM.png" 
+                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
+
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/PQkC0OQPBB8" frameborder="0" allowfullscreen></iframe>
+
 
                         </div>
 
