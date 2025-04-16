@@ -137,6 +137,8 @@
 
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/EVkx2cRd9Jg" frameborder="0" allowfullscreen></iframe>
                             
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/DZ_Gab5UGoE" frameborder="0" allowfullscreen></iframe>
+
 
 
                             <p> I plotted the values of yaw for each 24 degree turn over time. I compared it with the target angles of the PID controller and as seen the PID 
@@ -160,9 +162,10 @@
                                 actual position to be 2.14 mm. The average acceptable error between starting and ending position wwas around 22 mm leaving a 1.57 mm average error in position.  </p>
 
                            <p> I would collect data for each mapping on different areas of the ELL "map" in a csv. Due to time constraints I was not able to test on the actual lab map. Below is a photo of 
-                            the "map" I was using in the ELL using points (0,0) which is the cross in the middle, (-3, -2), and (-1, 3). The distance was meausred using the front TOF sensor and the 
+                            the "map" I was using in the ELL using points (0,0) which is the cross in the middle, (-3, -2), (2, -3), and (0, 1). The distance was meausred using the front TOF sensor and the 
                             data was sent via bluetooth after each mapping. The robot started at the same orientation facing front wards. I had a total variable that added the angle the robot stopped 
-                            at the previously recorded stopping angle to account for when the robot did not stop at exactly 24 degrees.  
+                            at the previously recorded stopping angle to account for when the robot did not stop at exactly 24 degrees. I think in some of the runs I was in the middle of the map 
+                            and was a moving obstacle that might have put noise into the data sometimes. 
                            </p>
                         
                            <img src="assets\img\ELLmap.jpg" 
@@ -171,13 +174,26 @@
 
                             <p> With each reading I collected data and put it in a polar coordinate frame plot to ensure the readings made sense. Unfortunately I had some noise which made it 
                                 difficult to determine the exact walls. I had to position the TOF sensor to point more upwards to get the data. Belwo are my coordinate plots as well as plots of my 
-                                TOF distance data over time. 
+                                TOF distance data over time. I think I could have gotten better data if I make the increments smaller. I think the larger increments caused the plots to miss some 
+                                aspects of my map such as the tiny box in the middle that would have caused the distance to be very small for the sensor to sense at certain angles. I did make sure all 
+                                the robots orientations started the same way but I think the noise and the wide turns on the axis made the data a bit hard to cypher. 
                             </p>
 
-                            <img src="assets\img\tofdataovertime.png" 
-                            alt="Lab 2 Pitch" style="width: 400px; height: auto;"/>
-                        
+                            <div class="subheading mb-3"> (0,0) Polar Coordinate Plot</div>
+                            <img src="assets\img\Loc1.png" 
+                            alt="ELLmap" style="width: 400px; height: auto;"/>
 
+                            <div class="subheading mb-3"> (0,1) Polar Coordinate Plot</div>
+                            <img src="assets\img\Loc2.png" 
+                            alt="ELLmap" style="width: 400px; height: auto;"/>
+
+                            <div class="subheading mb-3"> (-3,-2) Polar Coordinate Plot</div>
+                            <img src="assets\img\Loc3.png" 
+                            alt="ELLmap" style="width: 400px; height: auto;"/>
+
+                            <div class="subheading mb-3"> (2,-3) Polar Coordinate Plot</div>
+                            <img src="assets\img\Loc4.png" 
+                            alt="ELLmap" style="width: 400px; height: auto;"/>
 
                         </div>
 
@@ -197,13 +213,20 @@
                             <h3 class="mb-0">Merge and Plot Readings</h3>
                         
                             <p>
-                               Below are some videos of some bloopers of the car when I was attempting to do a flip. 
+                               After getting the data from different parts of the map, I plotted the distances in a global frame using the below transformation 
+                               matrix. I also plotted it all in the polar plot to see how it would all come together. I color coded the data points and set the
+                               matrices up for the coordinate points on the map. I did guestimate the coordinate points when doing it first because this was my own 
+                               map so later I did have to go through trial and error on the coordinates to get a global frame that best represented the map the robot
+                               was in. I just used the TOF sensor on the front of the car and used the best data set that best represented the map to merge. Below 
+                               is my code for one location and the necessary graphs of the merge data. 
 
                             </p>
                             <h3 class="mb-0">Line Based Map</h3>
 
                             <p>
-                                Below are some videos of some bloopers of the car when I was attempting to do a flip. 
+                                After plotting the above graph, I plotted lines that represented the walls of the map. This graph can be shown below. Some errors 
+                                were found in this. I think it might have been because my walls were not that well defined unlike in the lab space and I was walking
+                                around a lot or trying my best to hide from the sensor when I was collecting data. 
  
                              </p>
                                 
