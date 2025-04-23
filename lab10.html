@@ -59,14 +59,20 @@
                             <!-- Lab Text -->
                             <h3 class="mb-0">Localization and Bayes Filtering</h3>
                             <div class="subheading mb-3">Prelab</div>
-                            <p>For this lab I needed to download a far amount of starting code and directories to get 
-                                myself situated to do this lab. 
+                            <p>For this lab I needed to download a fare amount of starting code and directories to get 
+                                myself situated to do this lab. I used a Bayes Filter in the simulation to show 
+                                accurate localization. I comapred this with no Bayes Filter to see the difference. 
+                                To do this I had to implement a few helper functions to develop the Bayes filter algorithm. 
                             </p>
                             
                             <div class="subheading mb-3">Compute Control </div>
 
-                            <p> For this lab, </p>
-
+                            <p> To implement compute control, I had it take the current and the previous pose and use 
+                                their differene to determine the initial roation, translation, and final rotation. </p>
+                            
+                                <img src="assets\img\computecontrol1.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                           
                             <img src="assets\img\computecontrol.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
                            
@@ -74,27 +80,38 @@
 
                             <div class="subheading mb-3">Odometry Motion Model</div>
 
-                            <p>
+                            <p> If we know our current and previous pose, this function extracts the odometry model parameters using 
+                                compute_control(). Then it calculates the probabilities of these parameters as Gaussian distributions using 
+                                the given standard deviations cetnered a control input u. 
                             </p>
-                            <img src="assets\img\computecontrol.png" 
+                            <img src="assets\img\odommotionmode.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
 
                             <div class="subheading mb-3">Prediction Step</div>
 
-                            <p>
+                            <p> This function takes in the previous and current odometry state and extracts the odometry model parameters 
+                                using compute control again. It iternates over the entire grid of cells from loc.bel.bar for the previous 
+                                and current poses to construct a predicted belief. These probabilities are multiplied together and tallied 
+                                then finally normalized as a distribution to sum to 1. I used Stephan's idea to ignore very small probabilites 
+                                to speed up computation time. 
                             </p>
-                            <img src="assets\img\computecontrol.png" 
+                            <img src="assets\img\predstep.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
 
                             <div class="subheading mb-3">Sensor Model</div>
 
-                            <p>
+                            <p> The sensor model uses the array of observations and calculates the probabilities of each occuring as a Guassian. 
                             </p>
+                            <img src="assets\img\sensormode.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
                             <div class="subheading mb-3">Update Step</div>
 
-                            <p>
+                            <p> Finally this function iterates over the grid for the current state and using sensor model gets the sensor 
+                                model data and then updates the belief bel. This updated belief is then normalized to sum to 1. This number 
+                                is the robot's estimation of its position in the environment. 
                             </p>
-                            <img src="assets\img\computecontrol.png" 
+                            <img src="assets\img\updatestep.png" 
                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
 
                         </div>
@@ -112,7 +129,7 @@
                             <!-- Lab Text -->
                             <h3 class="mb-0">First Run</h3>
                         
-                            <p>
+                            <p> This is a video of the sim before bayes filter. As shown the odometry (red) goes everywhere. 
                                
                             </p>
 
@@ -120,13 +137,82 @@
 
 
 
-                            <h3 class="mb-0">After Bayes Filter</h3>
+                            <h3 class="mb-0">Run 1 After Bayes Filter</h3>
 
-                            <p>Include the most probable state after each iteration of the bayes filter along with its probability and 
-                                compare it with the ground truth pose. Write down your inference of when it works and when it doesn’t.
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/1qK7HQbkCvs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+                            <p>After adding the Bayes filter the odometry model is a bit better. The Bayes probabilistic belief (blue) gives a good approximation 
+                                of the robot's actual position. This is shown when the sensor is near the wall, the data is much better compared to 
+                                when it is in the center of the map. Below is the raw data for 2 runs. 
                                
  
                              </p>
+
+
+                             <table border="2" cellpadding="5" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>Step</th>
+                                    <th>Ground Truth State</th>
+                                    <th>Belief State</th>
+                                    <th>Belief Probability</th>
+                                    <th>Error</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr><td>0</td><td>(0.316, -0.823, 170.275)</td><td>(0.293, -0.910, -200.000)</td><td>1.0</td><td>(-0.023, -0.087, 370.275)</td></tr>
+                                  <tr><td>1</td><td>(0.371, -0.995, 527.357)</td><td>(0.168, -0.909, -200.000)</td><td>1.0</td><td>(0.203, 0.086, 727.357)</td></tr>
+                                  <tr><td>2</td><td>(0.425, -1.166, 884.437)</td><td>(0.222, -1.088, -200.000)</td><td>1.0</td><td>(0.203, 0.086, 1084.437)</td></tr>
+                                  <tr><td>3</td><td>(0.446, -1.346, 1244.437)</td><td>(0.375, -1.338, -200.000)</td><td>1.0</td><td>(-0.071, -0.008, 1444.437)</td></tr>
+                                  <tr><td>4</td><td>(0.330, -1.494, 1590.379)</td><td>(0.214, -1.642, -200.000)</td><td>1.0</td><td>(-0.116, -0.148, 1790.379)</td></tr>
+                                  <tr><td>5</td><td>(0.279, -1.479, 1958.085)</td><td>(0.228, -1.494, -200.000)</td><td>0.9999999</td><td>(0.051, 0.015, 2158.085)</td></tr>
+                                  <tr><td>6</td><td>(0.279, -1.479, 1935.164)</td><td>(0.228, -1.479, -200.000)</td><td>1.0</td><td>(0.051, 0.000, 2135.164)</td></tr>
+                                  <tr><td>7</td><td>(0.279, -1.479, 1881.101)</td><td>(0.228, -1.596, -200.000)</td><td>1.0</td><td>(0.051, -0.117, 2081.101)</td></tr>
+                                  <tr><td>8</td><td>(0.177, -1.784, 1806.045)</td><td>(0.075, -2.089, -200.000)</td><td>1.0</td><td>(0.102, -0.305, 2006.045)</td></tr>
+                                  <tr><td>9</td><td>(0.177, -1.784, 1785.920)</td><td>(0.177, -2.089, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1985.920)</td></tr>
+                                  <tr><td>10</td><td>(0.177, -1.784, 1765.795)</td><td>(0.177, -2.089, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1965.795)</td></tr>
+                                  <tr><td>11</td><td>(0.177, -1.784, 1745.670)</td><td>(0.177, -2.089, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1945.670)</td></tr>
+                                  <tr><td>12</td><td>(0.177, -1.784, 1725.545)</td><td>(0.177, -1.479, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1925.545)</td></tr>
+                                  <tr><td>13</td><td>(0.177, -1.784, 1705.420)</td><td>(0.177, -1.479, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1905.420)</td></tr>
+                                  <tr><td>14</td><td>(0.177, -1.784, 1685.295)</td><td>(0.177, -1.479, -200.000)</td><td>1.0</td><td>(0.000, -0.305, 1885.295)</td></tr>
+                                  <tr><td>15</td><td>(-0.672, -0.090, 5939.583)</td><td>(-0.610, -0.305, -170.000)</td><td>0.9999998</td><td>(0.062, 0.215, 6109.583)</td></tr>
+                                </tbody>
+                              </table>
+
+                              <h3 class="mb-0">Run 2 After Bayes Filter</h3>
+
+                              <table border="2" cellpadding="5" cellspacing="0">
+                                <thead>
+                                  <tr>
+                                    <th>Step</th>
+                                    <th>Ground Truth State</th>
+                                    <th>Belief State</th>
+                                    <th>Belief Probability</th>
+                                    <th>Error</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr><td>0</td><td>(0.287, -0.087, 320.561)</td><td>(0.305, 0.000, -50.000)</td><td>1.0</td><td>(-0.018, -0.087, 370.561)</td></tr>
+                                  <tr><td>1</td><td>(0.515, -0.523, 657.643)</td><td> (0.305, -0.610, -70.000)</td><td>1.0</td><td>(0.210, 0.087, 727.643)</td></tr>
+                                  <tr><td>2</td><td>(0.515, -0.523, 994.341)</td><td>(0.305, -0.610, -90.000)</td><td>1.0</td><td>(0.210, 0.087, 1084.341)</td></tr>
+                                  <tr><td>3</td><td>(0.545, -0.922, 1354.341)</td><td>(0.610, -0.914, -90.000)</td><td>1.0</td><td>(-0.064, -0.007, 1444.341)</td></tr>
+                                  <tr><td>4</td><td> (0.809, -1.064, 1799.806)</td><td> (0.610, 0.305, 90.000)</td><td> 0.9999998</td><td>(0.200, -1.369, 1709.806)</td></tr>
+                                  <tr><td>5</td><td>(1.587, -0.909, 2208.143)</td><td>(1.524, -0.914, 50.000)</td><td>1.0</td><td>(0.063, 0.005, 2158.143)</td></tr>
+                                  <tr><td>6</td><td>(1.677, -0.526, 2596.797)</td><td>(1.829, -0.305, 90.000)</td><td>1.0</td><td>(-0.152, -0.221, 2506.797)</td></tr>
+                                  <tr><td>7</td><td>(1.760, -0.176, 2962.432)</td><td>(1.829, -0.305, 90.000)</td><td>1.0</td><td>(-0.069, 0.129, 2872.432)</td></tr>
+                                  <tr><td>8</td><td>(1.775, 0.316, 3345.069)</td><td>(1.829, 0.000, 90.000)</td><td>0.8765183</td><td>(-0.054, 0.316, 3255.069)</td></tr>
+                                  <tr><td>9</td><td>(1.787, 0.634, 3745.171)</td><td>(1.829, 0.914, 150.000)</td><td>1.0</td><td>(-0.042, -0.280, 3595.171)</td></tr>
+                                  <tr><td>10</td><td>(1.377, 0.920, 4116.442)</td><td>(1.524, 0.610, 150.000)</td><td>0.9999999</td><td>(-0.147, 0.310, 3966.442)</td></tr>
+                                  <tr><td>11</td><td>(0.495, 0.842, 4572.681)</td><td>(0.610, 0.914, -110.000)</td><td>1.0</td><td> (-0.114, -0.073, 4682.681)</td></tr>
+                                  <tr><td>12</td><td>(0.302, 0.221, 4977.763)</td><td> (0.305, 0.305, -70.000)</td><td>1.0</td><td>(-0.003, -0.084, 5047.763)</td></tr>
+                                  <tr><td>13</td><td> (0.050, -0.081, 5270.166)</td><td>(0.000, -0.305, -130.000)</td><td>1.0</td><td>(0.050, 0.224, 5400.166)</td></tr>
+                                  <tr><td>14</td><td>(-0.316, -0.225, 5607.147)</td><td>(-0.305, -0.305, -150.000)</td><td>1.0</td><td>(-0.011, 0.080, 5757.147)</td></tr>
+                                  <tr><td>15</td><td>(-0.709, -0.215, 5944.129)</td><td>(-0.610, -0.305, -170.000)</td><td>0.9998672</td><td>(-0.100, 0.090, 6114.129)</td></tr>
+                                </tbody>
+                              </table>
+                              
+                              
 
                              
                                 
