@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Simulation</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Localization</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">11</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                       Localization (Real)
+                    </div>
+                    <p class="lead mb-5"> In this lab, I did localization in the real world using the lab's map and bayes filter.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 11</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Localization and Bayes Filtering</h3>
+                            <div class="subheading mb-3">Prelab</div>
+                            <p>For this lab I needed to download the localization modules and the needed jupyter notebooks and moved them
+                                into the correct directories. 
+                            </p>
+                            
+                            <div class="subheading mb-3">Simulation </div>
+
+                            <p> For the first task, I tested the provided localization and Baye's filter code to see if it would give simular results to 
+                                the one from lab 10. Below is an iages of the final result. The red line is the odometry, the green line is 
+                                the groun truth, and the blue line is the belief. I noticed this simulation result compared to other students the 
+                                odemetry did not go crazy and kept within the map boundaries surprisingly. 
+                            </p>
+                            
+                                <img src="assets\img\lab11sim.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                           
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">Localization</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Arduino Code</h3>
+                        
+                            <p> After getting the simulation results, I started implementing localization to work on the 
+                                real world. To ensure I could get the data, I needed to slightly change my mapping command.
+                                Since in lab 9, I had already performed mapping to 
+                                get the robot to rotate 360 degrees, I just changed my increment value from 24 (lab 9) to 
+                                20 for lab 11 to signify it would take 18 sensor readings at 20 degree intervals. I also 
+                                needed the car to rotate in a counter clockwise direction rather than clockwise like it 
+                                did in lab 9. To achieve this I just changed my increment from 20 degrees to negative 20 
+                                degrees. 
+                               
+                            </p>
+
+                            <p>
+                                Then I completed the function perform_observation_loop(). I had this function call my START_MAP 
+                                command that would have a notification handler that would collect the sent over TOF and yaw sensor 
+                                data. It stores these data points into two array called sensor_ranges and sensor_bearings. The function 
+                                initializes the arrays then it calls the notification handler then send the START_MAP command. 
+                                I used asyncio.run(asyncio.sleep(20)) to ensure that all the data would be collected before using the raw sensor readigns 
+                                and formatting the data as a NumPy column vector. Finally I returned these processed arrays so that it 
+                                could be used later for the Bayes filter algorithm. 
+                            </p>
+
+                            <img src="assets\img\lab11notifhandler.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
+                            <img src="assets\img\performobsloop.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
+
+                            <h3 class="mb-0">Localization</h3>
+
+
+                            <p>After setting up the arduino and the python code for the bayes filter algorithm I started to do localization 
+                                on the given map in the lab at different points. 
+                             </p>
+
+                             <h3 class="mb-0">(-3, -2)</h3>
+                             <img src="assets\img\bot_left_D.png" 
+                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                             <p>
+                                For this point, it was slightly off from the ground truth value. This was probably because  
+                                the walls are not that defined which could result in an error with the localization. 
+                                The belief was 0.3044 meters below the ground truth value. 
+                             </p>
+
+                             <h3 class="mb-0">(0, 3)</h3>
+                             <img src="assets\img\middle_D.png" 
+                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
+                             <p> 
+                                Surprisingly for this graph, the algorithm did a great job and the belief was accurate 
+                                each run. 
+                             </p>
+                             <h3 class="mb-0">(5, -3)</h3>
+                             <img src="assets\img\bottom_right_s1.png" 
+                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+
+                             <p> 
+                                Unfortunately for this graph, the belief was pretty far off from the ground truth state. 
+                                This was probably because of the same reasons as (-3, -2). The belief was 0.6819 meters 
+                                from the ground truth state. 
+                             </p>
+                             <h3 class="mb-0">(5, 3)</h3>
+                             <img src="assets\img\top_right_d.png" 
+                             alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                             <p>
+                                This time I was able to get closer results but still not as accurate as (0. 3). I think 
+                                this might have been because the smaller box was causing some confusion. The belief 
+                                was 0.3044 meters from the ground truth. 
+                             </p>
+
+                            <p>
+                                After performing one run, I decided to do another run. Below is a 
+                                table of all the Beliefs for each marked position and run. 
+                            </p>
+                            <title>Beliefs Table</title>
+                            <style>
+                              table {
+                                border-collapse: collapse;
+                                width: 60%;
+                                margin: 20px;
+                                font-family: Arial, sans-serif;
+                              }
+                              th, td {
+                                border: 1px solid #444;
+                                padding: 8px 12px;
+                                text-align: center;
+                              }
+                              th {
+                                background-color: #f2f2f2;
+                              }
+                              .row-label {
+                                font-weight: bold;
+                                background-color: #e8e8e8;
+                              }
+                            </style>
+                          </head>
+                          <body>
+                          
+                          <table>
+                            <tr>
+                              <th></th>
+                              <th>Beliefs Run 1</th>
+                              <th>Beliefs Run 2</th>
+                            </tr>
+                            <tr>
+                              <td class="row-label">(-3, -2)</td>
+                              <td> (-0.914, -0.914, -10.000)</td>
+                              <td>(-0.890, -0.930, -10.000)</td>
+                            </tr>
+                            <tr>
+                              <td class="row-label">(0, 3)</td>
+                              <td>(0.000, 0.914, -30.000)</td>
+                              <td>(0.000, 0.910, -30.000)</td>
+                            </tr>
+                            <tr>
+                              <td class="row-label">(5, -3)</td>
+                              <td>(0.914, -1.219, -50.000)</td>
+                              <td>(0.945, -1.200, -50.000)</td>
+                            </tr>
+                            <tr>
+                              <td class="row-label">(5, 3)</td>
+                              <td>(1.829, 0.610, -30.000)</td>
+                              <td>(1.810, 0.590, -30.000)</td>
+                            </tr>
+                          </table>
+                                
+                        </div>
+                        <p>
+                            I referenced Stephan Wagner and Mikayla Lahr for implementation. 
+                        </p>
+
+
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
