@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Daniela Tran ECE 5160</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                <span class="d-block d-lg-none">Daniela Tran</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="https://github.com/user-attachments/assets/803dbfde-941a-4486-abd3-57a8b59cc931" alt="IMG_3155(1)" style="width: 300px; height: auto; object-fit: cover;"/></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Path Planning</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Runs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section" id="about">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Lab 
+                        <span class="text-primary">12</span>
+                    </h1>
+                    <div class="subheading mb-5">
+                       Path Planning and Execution
+                    </div>
+                    <p class="lead mb-5"> In this lab, I moved around a map using PID control.</p>
+                    
+                </div>
+            </section>
+            <hr class="m-0" />
+            <!-- Projects-->
+            <section class="resume-section" id="experience">
+                <div class="resume-section-content">
+                    <h2 class="mb-5">Lab 12</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Path Planning and Execution</h3>
+                            <div class="subheading mb-3">Code Plan</div>
+                            <p>For this lab I first had to decide how I wanted to tackle this project whether to do open loop, closed loop, 
+                              or to hard code things in or not. After looking through last year's implementations, I decided that it would be 
+                              good for me to do open loop for the first two waypoints since we know exactly where we are in the beginning. This 
+                              would save some precious time so the car wouldn't have to do localization the first time. I then decided to do 
+                              local path planning rather than global path planning mainly for the sake of time since we already had exposure to 
+                              this from previous labs. The plan was after doing open loop to get from the first to the second point, I would then 
+                              start doing localization so the car could figure out where it was. After this I would calculate the needed
+                              target angle for the car to move based on the ground truth and belief state. Then I would do PID control for turning and 
+                              moving straight so the car could move to the next waypoint. I would have the car do this in a loop until all the waypoints 
+                              were reached until it reached the origin. Unfortunately due to timing constraints I was not able to do mapping and was only 
+                              able to do PID control for the car to move around the map. 
+                            </p>
+                            
+                            <div class="subheading mb-3">Implementation </div>
+                            <p>  I had to plan out the route that the car was going to take, so I took inspiration from Bhadra's mapping and implementation to do this. 
+                              I decided to also do 90 degree turns for the car to move around the map. Below is a map of the route I planned the car to taking. I used the 
+                              map in upson hall to do all my runs. 
+                            </p>
+                                <img src="assets\img\map.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <p> I had the car start with the TOF sensor facing forward. When I initialized the car, I set 0 the opposite way with the TOF sensor facign the other
+                              way. This was just an arbitrary thing I decided that I just went with for the rest of the lab to control the angles of the car. Below is 
+                              an image of how the angles are done. 
+                            </p>
+                            <img src="assets\img\angles.png" 
+                            alt="Lab 4 Hardware" style="width: 400px; height: auto;"/>
+                            <div class="subheading mb-3">PID Control </div>
+                            <p> For this lab I just reused the PID control function I coded from previous labs to do this assignment. I used the same PID constants I used from previous 
+                              labs. Kp = 0.4. Ki = 0.0004. Kd = 0.15. Kp_ori = 1.3. Ki_ori = 0.15. Kd_ori = 0.5. I created two new commands to control the car using PID control 
+                              to move the car forward and backward based on the given target distance and used PID orientation control to turn the car based on a desired angle. 
+                              These two new commands were called MOVE_STRAIGHT and TURN_ANG that each took in a target distance/angle. On the python side, I would just call both 
+                              these commands to move the car how I wanted using my calculated target distance values and angles. I just used the tiles and the fact that each tile was 
+                              around 304mm to get the values for the target distance. While implementing these commands, I faced a lot of control flow issues to make sure the car actually 
+                              moved and left the loop. Thus I gave my car a limit of 5 seconds to reach the target distance/angle for each waypoint. Below is my implementation. 
+                            </p>
+                            <script src="https://gist.github.com/Danimalias/4ea2c7ba5d29b7eeb79e08d67a1d0442.js"></script>
+                            <p> I just used the same implementation from lab 5 and 6 to do this part. I found that the angles were pretty accurate so I just kept the 0 and 90 angles as my 
+                              actual angle as my target angle. 
+
+                            </p>
+                            <div class="subheading mb-3">Python Side </div>
+                            <p> Below are my commands I used to control the car around the waypoints. I wasn't exactly accurate with the actual numbers for the distances because the PID controller 
+                              wasn't accurate to the mm anyways. I could have tuned the PID controls to be more accurate but I thought that my current performance was good enough to reach the waypoints 
+                              and move around. 
+                            </p>
+                            <script src="https://gist.github.com/Danimalias/89089d7e5d98e6f15c5dd080a3423401.js"></script>
+                           
+                    </div>
+                </div>
+            </section>
+            <section class="resume-section" id="interests">
+                <div class="resume-section-content">
+
+                    <h2 class="mb-5">Runs</h2>
+                    <div class="d-flex flex-column justify-content-between align-items-start mb-5">
+                        <!-- Content and Date container -->
+                        
+                        <div class="d-flex flex-column flex-grow-1">
+                            <!-- Lab Text -->
+                            <h3 class="mb-0">Run 1</h3>
+                        
+                            <p> This run was my best one. I noticed towards the end, angle 0 was not actual 0. I think I could have changed the angle a little bit to like 10 or 20 to 
+                              get the car to actually run back to (0,0) in a straight line. All in all, the car moved in pretty straight lines. If I had more time, I would have optimized 
+                              my angles more so instead of it being straight 90,0, I would have used 5 or 85 as my angles. The car still hit the waypoints within a tile during this run though which 
+                              I thought was suitable.  
+                    
+                            </p>
+
+                            <iframe width="560" height="315"
+                              src="https://www.youtube.com/embed/sjHqer1KhdA"
+                              title="YouTube video player"
+                              frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowfullscreen>
+                            </iframe>
+
+
+                            <h3 class="mb-0">Run 2</h3>
+
+
+                            <p>This was a slightly worse run in my opinion but there were some parts to it that were better than Run 1. I felt this one hit waypoint 3 and 4 better than the other one 
+                              but was worse at the last waypoint. Still I decided to add this one to show that this run could be completed multiple times. If I had more time, I think I could have 
+                              reliably done localization for this lab but just stuck to PID because I was working alone for this lab. 
+                             </p>
+                             <iframe width="560" height="315"
+                              src="https://www.youtube.com/embed/goKwgUiWgII"
+                              title="YouTube video player"
+                              frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowfullscreen>
+                            </iframe>
+           
+                        </div>
+                        <p>
+                            I worked alone for this lab but I referenced Bhadra Bejoy for implementation. 
+                        </p>
+
+
+                </div>
+            </section>
+            
+
+
+            
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
